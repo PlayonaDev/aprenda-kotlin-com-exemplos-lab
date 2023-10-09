@@ -9,9 +9,9 @@
 // 3 - Formações possuem característica importantes: nome, nvl e seus respectivos conteudosEducacionais.
 
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+enum class Nivel { BASICO, INTERMEDIARIO, AVANCADA }
 
-class Aluno(val nome: String, val idade: Int)
+data class Aluno(val nome: String, val idade: Int)
 
 data class ConteudoEducacional(val nome: String, val descricao: String)
 
@@ -28,37 +28,62 @@ data class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
 }
 
 fun main() {
-        // Criar alguns conteúdos educacionais
-    val conteudo1 = ConteudoEducacional("Introdução à Programação", "Aprenda os conceitos básicos de programação.")
-    val conteudo2 = ConteudoEducacional("Desenvolvimento Web", "Aprenda a criar aplicativos web.")
+    // Criar os conteúdos educacionais
+    val conteudo1 = ConteudoEducacional("Introdução Kotlin", "Aprenda os conceitos sobre Kotlin.")
+    val conteudo2 = ConteudoEducacional("Desenvolvimento de Apps", "Aprenda a criar aplicativos.")
     val conteudo3 = ConteudoEducacional("Banco de Dados", "Aprenda a trabalhar com bancos de dados.")
 
-    // Criar uma formação com esses conteúdos (nível básico)
-    val formacaoBasica = Formacao("Formação Básica de Desenvolvedor", Nivel.BASICO, listOf(conteudo1, conteudo2))
+    // Criar formação com esses conteúdos (nível básico)
+    val formacaoBasica = Formacao("Básica - Desenvolvedor Android", Nivel.BASICO, listOf(conteudo1, conteudo2))
 
-    // Criar uma formação com esses conteúdos (nível intermediário)
-    val formacaoIntermediaria = Formacao("Formação Intermediária de Desenvolvedor", Nivel.INTERMEDIARIO, listOf(conteudo2, conteudo3))
+    // Criar formação com esses conteúdos (nível intermediário)
+    val formacaoIntermediaria = Formacao("Intermediária - Desenvolvedor Android", Nivel.INTERMEDIARIO, listOf(conteudo2, conteudo3))
+
+    // Criar formação com esses conteúdos (nível Avançado)
+    val formacaoAvancada = Formacao("Avançada - Desenvolvedor Android", Nivel.AVANCADA, listOf(conteudo1, conteudo2, conteudo3))
 
     // Criar alguns alunos
-    val aluno1 = Aluno("João", 25)
-    val aluno2 = Aluno("Maria", 22)
-    val aluno3 = Aluno("Pedro", 30)
+    val aluno1 = Aluno("Vitor Augusto", 26)
+    val aluno2 = Aluno("Karime Cristina", 22)
+    val aluno3 = Aluno("Geovanna Richard", 30)
 
     // Matricular os alunos nas formações
     formacaoBasica.matricular(aluno1)
-    formacaoBasica.matricular(aluno2)
+    formacaoAvancada.matricular(aluno2)
 
     formacaoIntermediaria.matricular(aluno2)
     formacaoIntermediaria.matricular(aluno3)
 
     // Exibir informações sobre as formações e os alunos matriculados
+    println("-----------------------------------------------------")
+    
     println("Formação: ${formacaoBasica.nome}, Nível: ${formacaoBasica.nivel}")
+    println("Formação: ${formacaoIntermediaria.nome}, Nível: ${formacaoIntermediaria.nivel}")
+    println("Formação: ${formacaoAvancada.nome}, Nível: ${formacaoAvancada.nivel}")
+    
+    println("-----------------------------------------------------")
+    
     println("Conteúdos Educacionais:")
     for (conteudo in formacaoBasica.conteudos) {
         println("- ${conteudo.nome}: ${conteudo.descricao}")
     }
+    for (conteudo in formacaoIntermediaria.conteudos) {
+        println("- ${conteudo.nome}: ${conteudo.descricao}")
+    }
+    for (conteudo in formacaoAvancada.conteudos) {
+        println("- ${conteudo.nome}: ${conteudo.descricao}")
+    }
+    
+    println("-----------------------------------------------------")
+    
     println("Alunos Matriculados:")
     for (aluno in formacaoBasica.inscritos) {
+        println("- ${aluno.nome}, Idade: ${aluno.idade}")
+    }
+    for (aluno in formacaoIntermediaria.inscritos) {
+        println("- ${aluno.nome}, Idade: ${aluno.idade}")
+    }
+    for (aluno in formacaoAvancada.inscritos) {
         println("- ${aluno.nome}, Idade: ${aluno.idade}")
     }
     
